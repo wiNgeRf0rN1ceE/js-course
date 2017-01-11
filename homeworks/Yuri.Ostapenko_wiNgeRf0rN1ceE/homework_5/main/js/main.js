@@ -84,6 +84,27 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Profile content editing
 
+    $(window).on('dblclick', function(e) {
+        var target = event.target;
+        if (target.classList.contains('edit')) {
+            if (target.tagName == 'P') {
+                var element = document.createElement('textarea');
+                element.rows = '7';
+                element.cols = '50';
+            } else {
+                var element = document.createElement('input');
+            }
+            element.value = target.innerHTML;
+            target.innerHTML = null;
+            target.appendChild(element);
+            element.focus();
+
+            $(element).blur(function() {
+                target.innerHTML = element.value;
+            });
+        };
+    });
+
     //Get data with file
 
     $.getJSON("../data.json",function(data) {
